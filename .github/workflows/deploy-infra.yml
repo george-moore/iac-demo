@@ -17,6 +17,13 @@ jobs:
     steps:
      - run: echo "running dev stage"
 
+  1:
+    uses: ./.github/workflows/site-cd-workflow.yml
+    with:
+      working-directory: dev/1
+    secrets: inherit
+    needs: [dev]
+
   sample:
     uses: ./.github/workflows/site-cd-workflow.yml
     with:
@@ -33,7 +40,7 @@ jobs:
 
   qa:
     name: qa
-    needs: [sample,1,dev]
+    needs: [1,sample,1,dev]
     runs-on: ubuntu-latest
     steps:
      - run: echo "running qa stage"
